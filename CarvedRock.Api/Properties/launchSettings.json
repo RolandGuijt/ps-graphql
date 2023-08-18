@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "CarvedRock.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "graphql",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:5001"
+    }
+  }
+}

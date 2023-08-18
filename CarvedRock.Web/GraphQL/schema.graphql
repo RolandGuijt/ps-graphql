@@ -1,0 +1,42 @@
+﻿schema {
+  query: CarvedRockQuery
+}
+
+type CarvedRockQuery {
+  products: [Product]
+  product(id: Int!): Product
+  reviews(productId: Int!): [ProductReview]
+}
+
+type Product {
+  id: Int!
+  name: String!
+  type: ProductTypeEnum!
+  description: String!
+  price: Decimal!
+  stock: Int!
+  rating: Int!
+  introducedAt: DateTime!
+  photoFileName: String
+  productReviews: [ProductReview]
+}
+
+type ProductReview {
+  id: Int!
+  productId: Int!
+  product: Product
+  title: String!
+  review: String
+}
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
+
+"The built-in `Decimal` scalar type."
+scalar Decimal
+
+enum ProductTypeEnum {
+  BOOTS
+  CLIMBING_GEAR
+  KAYAKS
+}
