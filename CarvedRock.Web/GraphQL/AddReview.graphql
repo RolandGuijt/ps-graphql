@@ -1,5 +1,5 @@
-mutation($review: reviewInput!) {
-    createReview(review: $review) {
-        id
-    }
+mutation AddReview($reviewInput: ProductReviewInput!) {
+  addProductReview(review: $reviewInput) {
+    productId
+  }
 }

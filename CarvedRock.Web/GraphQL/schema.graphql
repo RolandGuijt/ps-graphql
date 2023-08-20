@@ -1,11 +1,38 @@
 ﻿schema {
   query: CarvedRockQuery
+  mutation: CarvedRockMutation
+}
+
+enum ProductTypeEnum {
+  BOOTS
+  CLIMBING_GEAR
+  KAYAKS
+}
+
+type CarvedRockMutation {
+  addProductReview(review: ProductReviewInput): ProductReview
 }
 
 type CarvedRockQuery {
   products: [Product]
   product(id: Int!): Product
   reviews(productId: Int!): [ProductReview]
+}
+
+input ProductReviewInput {
+  id: Int!
+  productId: Int!
+  product: ProductInput
+  title: String!
+  review: String
+}
+
+type ProductReview {
+  id: Int!
+  productId: Int!
+  product: Product
+  title: String!
+  review: String
 }
 
 type Product {
@@ -21,22 +48,21 @@ type Product {
   productReviews: [ProductReview]
 }
 
-type ProductReview {
-  id: Int!
-  productId: Int!
-  product: Product
-  title: String!
-  review: String
-}
-
 "The `DateTime` scalar represents an ISO-8601 compliant date time type."
 scalar DateTime
 
 "The built-in `Decimal` scalar type."
 scalar Decimal
 
-enum ProductTypeEnum {
-  BOOTS
-  CLIMBING_GEAR
-  KAYAKS
+input ProductInput {
+  id: Int!
+  name: String!
+  type: ProductTypeEnum!
+  description: String!
+  price: Decimal!
+  stock: Int!
+  rating: Int!
+  introducedAt: DateTime!
+  photoFileName: String
+  productReviews: [ProductReviewInput]
 }

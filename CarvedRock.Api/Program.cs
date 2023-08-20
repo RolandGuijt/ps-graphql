@@ -4,11 +4,12 @@ using CarvedRock.Api.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder();
 
 builder.Services.AddDbContext<CarvedRockDbContext>(options =>
-                options.UseSqlServer(builder.Configuration["ConnectionStrings:CarvedRock"]));
+                options.UseSqlite(builder.Configuration["ConnectionStrings:CarvedRock"]));
 
 builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<ProductReviewRepository>();
@@ -16,8 +17,9 @@ builder.Services.AddScoped<ProductReviewRepository>();
 builder.Services.AddGraphQLServer()
     .AddEnumType<ProductTypeEnum>()
     .AddMutationType<CarvedRockMutation>()
-    .AddMutationConventions(applyToAllMutations: true)
-    .AddQueryType<CarvedRockQuery>();
+    .AddQueryType<CarvedRockQuery>()
+    .AddSubscriptionType<CarvedRockSubscription>()
+    .AddInMemorySubscriptions();
 
 builder.Services.AddCors();
 
@@ -28,5 +30,12 @@ app.UseWebSockets();
 app.UseRouting();
 app.UseCors(builder =>
     builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-
 app.MapGraphQL();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<CarvedRockDbContext>();
+    db.Database.Migrate();
+}
+
+app.Run();

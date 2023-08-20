@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarvedRock.Api.Data.Migrations
@@ -12,8 +11,7 @@ namespace CarvedRock.Api.Data.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     Name = table.Column<string>(maxLength: 100, nullable: true),
                     Type = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true),

@@ -22,7 +22,9 @@ namespace CarvedRock.Api.Repositories
 
         public async Task<Product> GetOne(int id)
         {
-            return await _dbContext.Products.SingleOrDefaultAsync(p => p.Id == id);
+            return await _dbContext.Products
+                .Include(p => p.ProductReviews)
+                .SingleOrDefaultAsync(p => p.Id == id);
         }
     }
 }

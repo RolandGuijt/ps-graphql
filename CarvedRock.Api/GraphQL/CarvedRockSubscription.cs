@@ -1,17 +1,12 @@
-﻿namespace CarvedRock.Api.GraphQL
+﻿using CarvedRock.Api.Data.Entities;
+using HotChocolate;
+using HotChocolate.Types;
+
+namespace CarvedRock.Api.GraphQL
 {
-    /*public class CarvedRockSubscription: ObjectGraphType
+    public class CarvedRockSubscription
     {
-        public CarvedRockSubscription(ReviewMessageService messageService)
-        {
-            Name = "Subscription";
-            AddField(new EventStreamFieldType
-            {
-                Name = "reviewAdded",
-                Type = typeof(ReviewAddedMessageType),
-                Resolver = new FuncFieldResolver<ReviewAddedMessage>(c => c.Source as ReviewAddedMessage),
-                Subscriber = new EventStreamResolver<ReviewAddedMessage>(c => messageService.GetMessages())
-            });
-        }
-    }*/
+        [Subscribe]
+        public ProductReview ReviewAdded(int productId, [EventMessage] ProductReview review) => review;
+    }
 }

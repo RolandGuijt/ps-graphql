@@ -1,7 +1,8 @@
-﻿@model CarvedRock.Web.Models.ProductReviewModel
+﻿@model CarvedRock.Web.ProductReviewInput
 
 <h4>Add a review</h4>
 <form asp-action="AddReview">
+    <input type="hidden" asp-for="Id"/>
     <input type="hidden" asp-for="ProductId"/>
     <div class="row mb-2 form-group">
         <div class="col-3">

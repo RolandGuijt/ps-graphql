@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using CarvedRock.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using StrawberryShake;
 
@@ -19,14 +18,12 @@ namespace CarvedRock.Web.Controllers
         {
             var result = await _Client.GetProducts.ExecuteAsync();
             result.EnsureNoErrors();
-            //var responseModel = await _httpClient.GetProducts();
-            //responseModel.ThrowErrors();
+
             return View(result.Data.Products);
         }
 
         public async Task<IActionResult> ProductDetail(int productId)
         {
-            //_productGraphClient.SubscribeToUpdates();
             var result = await _Client.GetProduct.ExecuteAsync(productId);
             result.EnsureNoErrors();
             return View(result.Data.Product);
@@ -34,14 +31,15 @@ namespace CarvedRock.Web.Controllers
 
         public IActionResult AddReview(int productId)
         {
-            return View(new ProductReviewModel {ProductId = productId});
+            return View(new ProductReviewInput {ProductId = productId});
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddReview(ProductReviewModel reviewModel)
-        //{
-        //    await _productGraphClient.AddReview(reviewModel);
-        //    return RedirectToAction("ProductDetail", new {productId = reviewModel.ProductId});
-        //}
+        [HttpPost]
+        public async Task<IActionResult> AddReview(ProductReviewInput reviewModel)
+        {
+            var result = await _Client.AddReview.ExecuteAsync(reviewModel);
+            result.EnsureNoErrors();
+            return RedirectToAction("ProductDetail", new { productId = result.Data.AddProductReview.ProductId });
+        }
     }
 }

@@ -3,16 +3,19 @@ using System;
 using CarvedRock.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CarvedRock.Api.Data.Migrations
+namespace CarvedRock.Api.data.migrations
 {
     [DbContext(typeof(CarvedRockDbContext))]
-    partial class CarvedRockDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230820131109_SeedData")]
+    partial class SeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.10");

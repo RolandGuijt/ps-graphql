@@ -1,9 +1,9 @@
 query GetProducts {
-    products { 
-        id 
-        name 
-        price 
-        rating 
-        photoFileName 
-    } 
+  products {
+    id
+    name
+    price
+    rating
+    photoFileName
+  }
 }

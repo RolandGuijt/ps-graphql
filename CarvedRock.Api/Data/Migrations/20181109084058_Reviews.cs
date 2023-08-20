@@ -34,8 +34,7 @@ namespace CarvedRock.Api.Data.Migrations
                 name: "ProductReviews",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<int>(nullable: false),
                     ProductId = table.Column<int>(nullable: false),
                     Title = table.Column<string>(maxLength: 200, nullable: false),
                     Review = table.Column<string>(nullable: true)
