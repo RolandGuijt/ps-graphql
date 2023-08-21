@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CarvedRock.Api.Data;
 using CarvedRock.Api.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace CarvedRock.Api.Repositories
 {
@@ -15,16 +16,19 @@ namespace CarvedRock.Api.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Product>> GetAll()
-        {
-            return await _dbContext.Products.ToListAsync();
-        }
-
-        public async Task<Product> GetOne(int id)
+        public async Task<IEnumerable<ProductModel>> GetAll()
         {
             return await _dbContext.Products
+                .Select(p => p.ToModel())
+                .ToListAsync();
+        }
+
+        public async Task<ProductModel> GetOne(int id)
+        {
+            var entity = await _dbContext.Products
                 .Include(p => p.ProductReviews)
                 .SingleOrDefaultAsync(p => p.Id == id);
+            return entity.ToModel();
         }
     }
 }

@@ -7,6 +7,6 @@ namespace CarvedRock.Api.GraphQL
     public class CarvedRockSubscription
     {
         [Subscribe]
-        public ProductReview ReviewAdded(int productId, [EventMessage] ProductReview review) => review;
+        public ProductReviewModel ReviewAdded(int productId, [EventMessage] ProductReviewModel review) => review;
     }
 }

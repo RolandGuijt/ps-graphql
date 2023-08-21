@@ -31,11 +31,11 @@ namespace CarvedRock.Web.Controllers
 
         public IActionResult AddReview(int productId)
         {
-            return View(new ProductReviewInput {ProductId = productId});
+            return View(new ProductReviewModelInput {ProductId = productId});
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddReview(ProductReviewInput reviewModel)
+        public async Task<IActionResult> AddReview(ProductReviewModelInput reviewModel)
         {
             var result = await _Client.AddReview.ExecuteAsync(reviewModel);
             result.EnsureNoErrors();

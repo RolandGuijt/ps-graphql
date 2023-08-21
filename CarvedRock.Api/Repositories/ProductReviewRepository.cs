@@ -17,22 +17,30 @@ namespace CarvedRock.Api.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<ProductReview>> GetForProduct(int productId)
+        public async Task<IEnumerable<ProductReviewModel>> GetForProduct(int productId)
         {
-            return await _dbContext.ProductReviews.Where(pr => pr.ProductId == productId).ToListAsync();
+            var entities = await _dbContext.ProductReviews
+                .Where(pr => pr.ProductId == productId)
+                .ToListAsync();
+            return entities.Select(pr => pr.ToModel());
         }
 
-        public async Task<ILookup<int, ProductReview>> GetForProducts(IEnumerable<int> productIds)
+        public async Task<ILookup<int, ProductReviewModel>> GetForProducts(IEnumerable<int> productIds)
         {
-            var reviews = await _dbContext.ProductReviews.Where(pr => productIds.Contains(pr.ProductId)).ToListAsync();
-            return reviews.ToLookup(r => r.ProductId);
+            var reviews = await _dbContext.ProductReviews
+                .Where(pr => productIds.Contains(pr.ProductId)).ToListAsync();
+            return reviews
+                .Select(r => r.ToModel())
+                .ToLookup(r => r.ProductId);
         }
 
-        public async Task<ProductReview> AddReview(ProductReview review)
+        public async Task<ProductReviewModel> AddReview(ProductReviewModel review)
         {
-            _dbContext.ProductReviews.Add(review);
+            var newReviewEntity = new ProductReview();
+            review.ToEntity(newReviewEntity);
+            _dbContext.ProductReviews.Add(newReviewEntity);
             await _dbContext.SaveChangesAsync();
-            return review;
+            return newReviewEntity.ToModel();
         }
     }
 }

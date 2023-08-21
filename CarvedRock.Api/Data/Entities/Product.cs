@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace CarvedRock.Api.Data.Entities
 {
@@ -25,5 +26,23 @@ namespace CarvedRock.Api.Data.Entities
         public string PhotoFileName { get; set; }
 
         public List<ProductReview> ProductReviews { get; set; }
+
+        public ProductModel ToModel()
+        {
+            return new ProductModel
+            {
+                Id = Id,
+                Name = Name,
+                Type = Type,
+                Description = Description,
+                Price = Price,
+                Stock = Stock,
+                Rating = Rating,
+                IntroducedAt = IntroducedAt,
+                PhotoFileName = PhotoFileName,
+                ProductReviews = ProductReviews?
+                    .Select(r => r.ToModel()).ToList()
+            };
+        }
     }
 }
