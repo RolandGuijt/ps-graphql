@@ -1,12 +1,11 @@
-﻿using CarvedRock.Api.Data.Entities;
-using HotChocolate;
+﻿using HotChocolate;
 using HotChocolate.Types;
 
-namespace CarvedRock.Api.GraphQL
+namespace CarvedRock.Api.GraphQL;
+
+public class CarvedRockSubscription
 {
-    public class CarvedRockSubscription
-    {
-        [Subscribe]
-        public ProductReviewModel ReviewAdded(int productId, [EventMessage] ProductReviewModel review) => review;
-    }
+    [Subscribe]
+    public ProductReviewModel ReviewAdded(int productId, [EventMessage] ProductReviewModel review) => review;
 }
+

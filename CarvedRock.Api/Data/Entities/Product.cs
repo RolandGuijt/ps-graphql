@@ -29,19 +29,9 @@ namespace CarvedRock.Api.Data.Entities
 
         public ProductModel ToModel()
         {
-            return new ProductModel
+            return new ProductModel(Id,Name,Type,Description,Price,Stock,Rating,IntroducedAt,PhotoFileName)
             {
-                Id = Id,
-                Name = Name,
-                Type = Type,
-                Description = Description,
-                Price = Price,
-                Stock = Stock,
-                Rating = Rating,
-                IntroducedAt = IntroducedAt,
-                PhotoFileName = PhotoFileName,
-                ProductReviews = ProductReviews?
-                    .Select(r => r.ToModel()).ToList()
+                ProductReviews = ProductReviews?.Select(r => r.ToModel()).ToList()
             };
         }
     }

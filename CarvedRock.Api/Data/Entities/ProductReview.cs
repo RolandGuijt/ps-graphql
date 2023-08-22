@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace CarvedRock.Api.Data.Entities
 {
-    public class ProductReview
+    public record ProductReview
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
@@ -13,13 +13,7 @@ namespace CarvedRock.Api.Data.Entities
 
         public ProductReviewModel ToModel()
         {
-            return new ProductReviewModel
-            {
-                Id = Id,
-                ProductId = ProductId,
-                Title = Title,
-                Review = Review
-            };
+            return new ProductReviewModel(Id, ProductId, Title, Review);
         }
     }
 }
