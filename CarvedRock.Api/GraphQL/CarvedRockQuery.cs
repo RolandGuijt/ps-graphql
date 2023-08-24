@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using CarvedRock.Api.Repositories;
+﻿using CarvedRock.Api.Repositories;
 
 namespace CarvedRock.Api.GraphQL;
 
-public class CarvedRockQuery
+[QueryType]
+public static class CarvedRockQuery
 {
-    public async Task<IEnumerable<ProductModel>> Products(ProductRepository repo) => await repo.GetAll();
-    public async Task<ProductModel> Product(int id, ProductRepository repo) => await repo.GetOne(id);
-    public async Task<IEnumerable<ProductReviewModel>> Reviews(int productId, ProductReviewRepository repo) =>
+    [UsePaging(DefaultPageSize = 3)]
+    public static async Task<IEnumerable<ProductModel>> Products([Service] ProductRepository repo) => await repo.GetAll();
+    public static async Task<ProductModel> Product(int id, [Service] ProductRepository repo) => await repo.GetOne(id);
+    public static async Task<IEnumerable<ProductReviewModel>> Reviews(int productId, [Service] ProductReviewRepository repo) =>
         await repo.GetForProduct(productId);
 }
 

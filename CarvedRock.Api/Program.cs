@@ -1,12 +1,6 @@
-﻿
-
-using CarvedRock.Api.Data;
-using CarvedRock.Api.GraphQL;
+﻿using CarvedRock.Api.Data;
 using CarvedRock.Api.Repositories;
-using HotChocolate;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder();
 
@@ -17,12 +11,8 @@ builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<ProductReviewRepository>();
 
 builder.Services.AddGraphQLServer()
-    .AddQueryType<CarvedRockQuery>()
-    .AddMutationType<CarvedRockMutation>()
-    .AddSubscriptionType<CarvedRockSubscription>()
-    .AddInMemorySubscriptions()
-    .RegisterService<ProductRepository>(ServiceKind.Resolver)
-    .RegisterService<ProductReviewRepository>(ServiceKind.Resolver);
+    .AddTypes()
+    .AddInMemorySubscriptions();
 
 builder.Services.AddCors();
 
@@ -31,8 +21,8 @@ var app = builder.Build();
 app.UseWebSockets();
 
 app.UseRouting();
-app.UseCors(builder =>
-    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+app.UseCors(b =>
+    b.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 app.MapGraphQL();
 
 using (var scope = app.Services.CreateScope())
