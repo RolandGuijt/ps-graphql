@@ -15,6 +15,7 @@ public class ProductRepository
     public async Task<IEnumerable<ProductModel>> GetAll()
     {
         return await _dbContext.Products
+            .Include(p => p.ProductReviews)
             .Select(p => p.ToModel())
             .ToListAsync();
     }

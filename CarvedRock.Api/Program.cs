@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder();
 
-builder.Services.AddDbContext<CarvedRockDbContext>(options =>
+builder.Services.AddDbContextPool<CarvedRockDbContext>(options =>
                 options.UseSqlite(builder.Configuration["ConnectionStrings:CarvedRock"]));
 
 builder.Services.AddScoped<ProductRepository>();
