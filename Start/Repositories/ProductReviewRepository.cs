@@ -4,18 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarvedRock.Api.Repositories;
 
-public class ProductReviewRepository
+public class ProductReviewRepository(CarvedRockDbContext dbContext)
 {
-    private readonly CarvedRockDbContext _dbContext;
-
-    public ProductReviewRepository(CarvedRockDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public async Task<IEnumerable<ProductReviewModel>> GetForProduct(int productId)
     {
-        var entities = await _dbContext.ProductReviews
+        var entities = await dbContext.ProductReviews
             .Where(pr => pr.ProductId == productId)
             .ToListAsync();
         return entities.Select(pr => pr.ToModel());
@@ -23,7 +16,7 @@ public class ProductReviewRepository
 
     public async Task<ILookup<int, ProductReviewModel>> GetForProducts(IEnumerable<int> productIds)
     {
-        var reviews = await _dbContext.ProductReviews
+        var reviews = await dbContext.ProductReviews
             .Where(pr => productIds.Contains(pr.ProductId)).ToListAsync();
         return reviews
             .Select(r => r.ToModel())
@@ -34,8 +27,8 @@ public class ProductReviewRepository
     {
         var newReviewEntity = new ProductReview();
         review.ToEntity(newReviewEntity);
-        _dbContext.ProductReviews.Add(newReviewEntity);
-        await _dbContext.SaveChangesAsync();
+        dbContext.ProductReviews.Add(newReviewEntity);
+        await dbContext.SaveChangesAsync();
         return newReviewEntity.ToModel();
     }
 }

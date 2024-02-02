@@ -3,18 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarvedRock.Api.Repositories;
 
-public class ProductRepository
+public class ProductRepository(CarvedRockDbContext dbContext)
 {
-    private readonly CarvedRockDbContext _dbContext;
-
-    public ProductRepository(CarvedRockDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public async Task<IEnumerable<ProductModel>> GetAll()
     {
-        return await _dbContext.Products
+        return await dbContext.Products
             .Include(p => p.ProductReviews)
             .Select(p => p.ToModel())
             .ToListAsync();
@@ -22,7 +15,7 @@ public class ProductRepository
 
     public async Task<ProductModel> GetOne(int id)
     {
-        var entity = await _dbContext.Products
+        var entity = await dbContext.Products
             .Include(p => p.ProductReviews)
             .SingleOrDefaultAsync(p => p.Id == id);
         return entity.ToModel();
