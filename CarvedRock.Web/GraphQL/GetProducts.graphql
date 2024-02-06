@@ -1,9 +1,0 @@
-query GetProducts {
-  products {
-    id
-    name
-    price
-    rating
-    photoFileName
-  }
-}
