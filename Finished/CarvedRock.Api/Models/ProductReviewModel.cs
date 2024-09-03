@@ -1,6 +1,6 @@
 using CarvedRock.Api.Data.Entities;
 
-public record ProductReviewModel(int Id, int ProductId, string Title, string Review)
+public record ProductReviewModel(int? Id, int ProductId, string Title, string Review)
 {
   public void ToEntity(ProductReview entity)
   {

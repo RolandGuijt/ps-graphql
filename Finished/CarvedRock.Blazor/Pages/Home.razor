@@ -10,10 +10,11 @@
     <ChildContent>
         @foreach (var product in result.Products!)
         {
+            var link = $"ProductDetail/{product!.Id}";
             <div class="row">
-                <div class="col-2 text-center ml-5"><img height="80" src="Images/@product.PhotoFileName" alt="Product image" /></div>
+                <div class="col-2 text-center ml-5"><img height="80" src="Images/@product!.PhotoFileName" alt="Product image" /></div>
                 <div class="col-2 my-auto">
-                    <NavLink href="ProductDetail/{@product.Id}">@product.Name</NavLink>
+                    <NavLink href="@link">@product.Name</NavLink>
                 </div>
                 <div class="col-2 my-auto">$@product.Price</div>
                 <div class="col-2 my-auto stars">

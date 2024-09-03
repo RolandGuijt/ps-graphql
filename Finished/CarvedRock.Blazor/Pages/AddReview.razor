@@ -1,14 +1,13 @@
-﻿@page "/AddReview"
+﻿@page "/AddReview/{productId:int}"
 <h4>Add a review</h4>
-<form asp-action="AddReview">
-    <input type="hidden" asp-for="Id"/>
-    <input type="hidden" asp-for="ProductId"/>
+
+<EditForm Model="_model" OnSubmit="@FormSubmitted">
     <div class="row mb-2 form-group">
         <div class="col-3">
             <label asp-for="Title"></label>
         </div>
         <div class="col-9">
-            <input class="form-control" type="text" asp-for="Title"/>
+            <InputText class="form-control" @bind-Value="_model.Title"/>
         </div>
     </div>
     <div class="row">
@@ -16,8 +15,29 @@
             <label asp-for="Review"></label>
         </div>
         <div class="col-9">
-            <input class="form-control" type="text" asp-for="Review"/>
+            <InputText class="form-control" @bind-Value="_model.Review"/>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    ProductReviewModelInput _model = new();
+
+    [Inject] ICarvedRockClient Client { get; set; }
+    [Inject] NavigationManager Nav { get; set; }
+    
+    async Task FormSubmitted()
+    {
+        var result = await Client.AddReview.ExecuteAsync(new ProductReviewModelInput
+        {
+            ProductId = ProductId, 
+            Title = _model.Title, 
+            Review = _model.Review
+        });
+        Nav.NavigateTo($"/ProductDetail/{ProductId}");
+    }
+}

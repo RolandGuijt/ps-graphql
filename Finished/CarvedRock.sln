@@ -5,8 +5,6 @@ VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarvedRock.Api", "CarvedRock.Api\CarvedRock.Api.csproj", "{81C7A112-94D5-40C7-B28A-2C2356E71B0E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarvedRock.Web", "CarvedRock.Web\CarvedRock.Web.csproj", "{2D1BE822-9681-44CF-B456-C9506A1260F1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarvedRock.Blazor", "CarvedRock.Blazor\CarvedRock.Blazor.csproj", "{C4AE0976-10F4-446A-A438-0E30367CC26F}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{81C7A112-94D5-40C7-B28A-2C2356E71B0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81C7A112-94D5-40C7-B28A-2C2356E71B0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81C7A112-94D5-40C7-B28A-2C2356E71B0E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D1BE822-9681-44CF-B456-C9506A1260F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D1BE822-9681-44CF-B456-C9506A1260F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D1BE822-9681-44CF-B456-C9506A1260F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D1BE822-9681-44CF-B456-C9506A1260F1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C4AE0976-10F4-446A-A438-0E30367CC26F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C4AE0976-10F4-446A-A438-0E30367CC26F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4AE0976-10F4-446A-A438-0E30367CC26F}.Release|Any CPU.ActiveCfg = Release|Any CPU
