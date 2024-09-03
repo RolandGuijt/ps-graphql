@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="StrawberryShake.Server" Version="13.8.1" />
+    <PackageReference Include="StrawberryShake.Server" Version="14.0.0-rc.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,6 +2,34 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="row">
+    <h4 class="mb-3 ml-5">Today's specials:</h4>
+</div>
 
-Welcome to your new app.
+<UseGetProducts Context="result">
+    <ChildContent>
+        @foreach (var product in result.Products!)
+        {
+            <div class="row">
+                <div class="col-2 text-center ml-5"><img height="80" src="Images/@product.PhotoFileName" alt="Product image" /></div>
+                <div class="col-2 my-auto">
+                    <NavLink href="ProductDetail/{@product.Id}">@product.Name</NavLink>
+                </div>
+                <div class="col-2 my-auto">$@product.Price</div>
+                <div class="col-2 my-auto stars">
+                    @for (var i = 0; i < @product.Rating; i++)
+                    {
+                        <text>*</text>
+                    }
+                </div>
+            </div>
+        }
+    </ChildContent>
+    <ErrorContent>
+        Something went wrong ...<br />
+        @result.First().Message
+    </ErrorContent>
+    <LoadingContent>
+        Loading ...
+    </LoadingContent>
+</UseGetProducts>

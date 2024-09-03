@@ -6,8 +6,8 @@ namespace CarvedRock.Api.GraphQL;
 [MutationType]
 public static class CarvedRockMutation
 {
-    public static async Task<ProductReviewModel> AddProductReview([Service] ProductReviewRepository repo,
-        [Service] ITopicEventSender sender,
+    public static async Task<ProductReviewModel> AddProductReview(ProductReviewRepository repo,
+        ITopicEventSender sender,
         ProductReviewModel review)
     {
         var newReview = await repo.AddReview(review);
