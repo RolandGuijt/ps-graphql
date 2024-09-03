@@ -1,0 +1,5 @@
+mutation AddReview($reviewInput: ProductReviewModelInput!) {
+  addProductReview(review: $reviewInput) {
+    productId
+  }
+}
