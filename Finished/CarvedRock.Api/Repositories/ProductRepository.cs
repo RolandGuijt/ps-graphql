@@ -12,19 +12,19 @@ public class ProductRepository
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<ProductModel>> GetAll()
+    public async Task<IEnumerable<ProductModel>> GetAll(CancellationToken cancellationToken)
     {
         return await _dbContext.Products
             .Include(p => p.ProductReviews)
             .Select(p => p.ToModel())
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
     }
 
-    public async Task<ProductModel> GetOne(int id)
+    public async Task<ProductModel> GetOne(int id, CancellationToken cancellationToken)
     {
         var entity = await _dbContext.Products
             .Include(p => p.ProductReviews)
-            .SingleOrDefaultAsync(p => p.Id == id);
+            .SingleOrDefaultAsync(p => p.Id == id, cancellationToken);
         return entity.ToModel();
     }
 }

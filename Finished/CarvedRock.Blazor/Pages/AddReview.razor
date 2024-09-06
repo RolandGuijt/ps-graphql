@@ -3,16 +3,16 @@
 
 <EditForm Model="_model" OnSubmit="@FormSubmitted">
     <div class="row mb-2 form-group">
-        <div class="col-3">
-            <label asp-for="Title"></label>
+        <div class="col-2">
+            <label>Title:</label>
         </div>
         <div class="col-9">
             <InputText class="form-control" @bind-Value="_model.Title"/>
         </div>
     </div>
     <div class="row">
-        <div class="col-3">
-            <label asp-for="Review"></label>
+        <div class="col-2">
+            <label>Review:</label>
         </div>
         <div class="col-9">
             <InputText class="form-control" @bind-Value="_model.Review"/>

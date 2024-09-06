@@ -10,7 +10,7 @@ builder.Services.AddDbContextPool<CarvedRockDbContext>(options =>
 builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<ProductReviewRepository>();
 
-builder.Services.AddGraphQLServer()
+builder.Services.AddGraphQLServer()    
     .AddTypes()
     .AddInMemorySubscriptions();
 
@@ -31,4 +31,4 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 }
 
-app.Run();
+await app.RunWithGraphQLCommandsAsync(args);

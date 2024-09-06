@@ -64,4 +64,14 @@
 @code {
     [Parameter]
     public int ProductId { get; set; }
+
+    [Inject] ICarvedRockClient Client { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Client.OnReviewAdded.Watch().Subscribe(result =>
+        {
+            Console.WriteLine("Review added");
+        });
+    }
 }

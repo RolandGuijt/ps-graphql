@@ -1,28 +1,25 @@
-﻿schema {
-  query: CarvedRockQuery
-  mutation: CarvedRockMutation
-  subscription: CarvedRockSubscription
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
 }
 
-enum ProductTypeEnum {
-  BOOTS
-  CLIMBING_GEAR
-  KAYAKS
-}
-
-type CarvedRockMutation {
-  addProductReview(review: ProductReviewModelInput): ProductReviewModel
-}
-
-type CarvedRockQuery {
+type Query {
   products: [ProductModel]
   product(id: Int!): ProductModel
   reviews(productId: Int!): [ProductReviewModel]
 }
 
-type CarvedRockSubscription {
-  reviewAdded(productId: Int!): ProductReviewModel
+type Mutation {
+  addProductReview(review: ProductReviewModelInput): ProductReviewModel
 }
+
+type Subscription {
+  onReviewAdded: ProductReviewModel
+}
+
+"The built-in `Decimal` scalar type."
+scalar Decimal
 
 type ProductModel {
   id: Int!
@@ -35,17 +32,19 @@ type ProductModel {
   introducedAt: DateTime!
   photoFileName: String
   productReviews: [ProductReviewModel]
+  totalStockValue: Decimal!
+  reviewsById: [ProductReviewModel]
 }
 
 input ProductReviewModelInput {
-  id: Int!
+  id: Int
   productId: Int!
   title: String
   review: String
 }
 
 type ProductReviewModel {
-  id: Int!
+  id: Int
   productId: Int!
   title: String
   review: String
@@ -54,5 +53,11 @@ type ProductReviewModel {
 "The `DateTime` scalar represents an ISO-8601 compliant date time type."
 scalar DateTime
 
-"The built-in `Decimal` scalar type."
-scalar Decimal
+enum ProductTypeEnum {
+  BOOTS
+  CLIMBING_GEAR
+  KAYAKS
+}
+
+"The purpose of the `cost` directive is to define a `weight` for GraphQL types, fields, and arguments. Static analysis can use these weights when calculating the overall cost of a query or response."
+directive @cost("The `weight` argument defines what value to add to the overall cost for every appearance, or possible appearance, of a type, field, argument, etc." weight: String!) on SCALAR | OBJECT | FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM | INPUT_FIELD_DEFINITION

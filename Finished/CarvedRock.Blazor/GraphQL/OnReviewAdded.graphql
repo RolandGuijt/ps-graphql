@@ -1,0 +1,8 @@
+﻿subscription OnReviewAdded {
+  onReviewAdded {
+    id
+    productId
+    title
+    review
+  }
+}

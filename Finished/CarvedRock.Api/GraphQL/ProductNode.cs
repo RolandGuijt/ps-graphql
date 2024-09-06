@@ -17,6 +17,6 @@ public static class ProductNode
     [DataLoader(ServiceScope = DataLoaderServiceScope.DataLoaderScope)]
     public static async Task<ILookup<int, ProductReviewModel>> GetReviewsByProductId(
         IReadOnlyList<int> ids,
-        [Service] ProductReviewRepository repo) => await repo.GetForProducts(ids);
+        [Service] ProductReviewRepository repo, CancellationToken cancellationToken) => await repo.GetForProducts(ids, cancellationToken);
 }
 

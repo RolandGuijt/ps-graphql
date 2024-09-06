@@ -8,10 +8,11 @@ public static class CarvedRockMutation
 {
     public static async Task<ProductReviewModel> AddProductReview(ProductReviewRepository repo,
         ITopicEventSender sender,
-        ProductReviewModel review)
+        ProductReviewModel review, CancellationToken cancellationToken)
     {
-        var newReview = await repo.AddReview(review);
-        await sender.SendAsync("ReviewAdded", newReview);
+        var newReview = await repo.AddReview(review, cancellationToken);
+        if (newReview.Id != null)
+            await sender.SendAsync(nameof(CarvedRockSubscription.OnReviewAdded), new ReviewAddedMessage(newReview.Id.Value), cancellationToken);
         return newReview;
     }
 }
